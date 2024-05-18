@@ -11,6 +11,7 @@ from models.amenity import Amenity
 from models.user import User
 import os
 
+
 class FileStorage:
     """ creating a new class called file storage """
     __file_path = "file.json"
@@ -27,7 +28,7 @@ class FileStorage:
         self.__objects[keyName] = obj
 
     def save(self):
-        """ time to serialize our python object file into a json 
+        """ time to serialize our python object file into a json
             file data base
         """
         client_data = dict(self.__objects)
@@ -35,19 +36,18 @@ class FileStorage:
             client_data[key] = value.to_dict()
         with open(self.__file_path, 'w') as fle:
             json.dump(client_data, fle)
-    
 
     def reload(self):
-        """ 
+        """
         decerialization is bring out data out of json database
-        for corrections 
+        for corrections
         """
         if os.path.exists(self.__file_path):
             with open(self.__file_path) as fle:
-                client_data= json.load(fle)
+                client_data = json.load(fle)
             for keys in client_data.keys():
                 if client_data[keys]['__class__'] == "User":
-                    self.__objects[keys] = User(**client_data[keys]) 
+                    self.__objects[keys] = User(**client_data[keys])
                 elif client_data[keys]['__class__'] == "BaseModel":
                     self.__objects[keys] = BaseModel(**client_datal[keys])
                 elif client_data[keys]['__class__'] == "Review":
@@ -62,5 +62,3 @@ class FileStorage:
                     self.__objects[keys] = City(**client_data[keys])
                 elif client_data[keys]['__class__'] == "Amenity":
                     self.__objects[keys] = Amenity(**client_data[keys])
-
-

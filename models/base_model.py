@@ -1,13 +1,14 @@
 #!/usr/bin/python3
 """
-creating a class called BaseModel that has a private attributes and methods 
+creating a class called BaseModel that has a private attributes and methods
 for initialization, serilization and deserialization of file storage
 lets enjoy the fun
 """
 
-from uuid import uuid4 #to create random key id for every session
-import models 
+from uuid import uuid4
+import models
 from datetime import datetime
+
 
 class BaseModel:
     """ initializing a class """
@@ -16,7 +17,7 @@ class BaseModel:
         seld.id = str(uuid4())
         self.created_at = datetime.now()
         self.udated_at = datetime.now()
-        
+
         if len(kwargs > 0):
             for key, value in kwargs.items():
                 if key == "created_at" or key == "updated_at":
@@ -31,7 +32,8 @@ class BaseModel:
 
     def __str_(self) -> str:
         """ converts data into string to be saved """
-        att = "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
+        att = "[{}] ({}) {}".format
+        (self.__class__.__name__, self.id, self.__dict__)
         return att
 
     def save(self) -> None:
@@ -46,4 +48,3 @@ class BaseModel:
         my_dico["created_at"] = datetime.isoformat(self.created_at)
         my_dico['updated_at'] = datetime.isoformat(self.updated_at)
         return my_dico
-
