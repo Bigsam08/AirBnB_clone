@@ -15,9 +15,10 @@ from models.base_model import BaseModel
 from models.amenity import Amenity
 from models.review import Review
 
+
 class HBNBCommand(cmd.Cmd):
     """
-        class created for our commandline 
+        class created for our commandline
         using cmd
     """
     prompt = "(hbnb) "
@@ -32,7 +33,7 @@ class HBNBCommand(cmd.Cmd):
     }
 
     def do_quit(self, arg):
-        """ exit the program when user 
+        """ exit the program when user
             enters quit command
         """
         return True
@@ -46,7 +47,7 @@ class HBNBCommand(cmd.Cmd):
         """ empty line + ENTER should execute nothing"""
         pass
 
-    def create(self, arg):
+    def do_create(self, arg):
         """ creates a new class for each of the following"""
         arg = arg.split()
         if len(arg) == 0:
@@ -57,7 +58,7 @@ class HBNBCommand(cmd.Cmd):
             print(eval(argl[0])().id)
             storage.save()
 
-    def show(self, arg):
+    def do_show(self, arg):
         """
         shows str rep of instance
         , showing class and id and also err msgs
@@ -75,7 +76,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             print(obj_dict["{}.{}".format(argl[0], argl[1])])
 
-    def destroy(self, arg):
+    def do_destroy(self, arg):
         """
         Delete a class instance of a given id
         """
@@ -93,7 +94,7 @@ class HBNBCommand(cmd.Cmd):
             del obj_dict[F"{arg[0]}.{arg[1]}"]
             storage.save()
 
-    def all(self, arg):
+    def do_all(self, arg):
         """
             display all string rep instsnce of all classes
             If no class is specified, displays all instantiated objects.
@@ -110,7 +111,7 @@ class HBNBCommand(cmd.Cmd):
                     new_list.append(obj.__str__())
             print(new_list)
 
-    def update(self, arg):
+    def do_update(self, arg):
         """
         Update an instance
         Using class name and id to access attributes for change
@@ -141,4 +142,4 @@ class HBNBCommand(cmd.Cmd):
 
 
 if __name__ == '__main__':
-    HBNBCommand().cmdloop()    
+    HBNBCommand().cmdloop()

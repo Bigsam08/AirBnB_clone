@@ -14,7 +14,7 @@ class BaseModel:
     """ initializing a class """
     def __int__(self, *args, **kwargs) -> None:
         """creating class attributes """
-        seld.id = str(uuid4())
+        self.id = str(uuid4())
         self.created_at = datetime.now()
         self.udated_at = datetime.now()
 
