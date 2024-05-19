@@ -12,13 +12,13 @@ from datetime import datetime
 
 class BaseModel:
     """ initializing a class """
-    def __int__(self, *args, **kwargs) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         """creating class attributes """
         self.id = str(uuid4())
         self.created_at = datetime.now()
         self.udated_at = datetime.now()
 
-        if len(kwargs > 0):
+        if len(kwargs) > 0:
             for key, value in kwargs.items():
                 if key == "created_at" or key == "updated_at":
                     time = datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f")
@@ -26,25 +26,24 @@ class BaseModel:
                 elif key != "__class__":
                     setattr(self, key, value)
         else:
-            storage.new(self)
+            models.storage.new(self)
 
         """ creating class method instances """
 
     def __str_(self) -> str:
         """ converts data into string to be saved """
-        att = "[{}] ({}) {}".format
-        (self.__class__.__name__, self.id, self.__dict__)
-        return att
+        return "[{}] ({}) {}".\
+            format(type(self).__name__, self.id, self.__dict__)
 
     def save(self) -> None:
         """ method saves data and update time of changes """
         self.updated_at = datetime.now()
         storage.save()
 
-    def to_dict(self) -> str:
+    def to_dict(self) -> dict:
         """ saves converted string data into dictionary """
-        my_dico = dict(self.__dict__)
-        my_dico["__class__"] = self.__class__.__name__
-        my_dico["created_at"] = datetime.isoformat(self.created_at)
-        my_dico['updated_at'] = datetime.isoformat(self.updated_at)
-        return my_dico
+        temp_dico = self.__dict__.copy()
+        temp_dico["__class__"] = type(self).__name__
+        temp_dico["created_at"] = temp_dico["created_at"].isoformat()
+        temp_dico["updated_at"] = temp_dico["updated_at"].isoformat()
+        return temp_dico
