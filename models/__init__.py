@@ -9,5 +9,5 @@ from models.engine.file_storage import FileStorage
 ''' create an instance and load from
     JSON file into instance storage
 '''
-storage = Filestorage()
+storage = FileStorage()
 storage.reload()

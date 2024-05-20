@@ -28,7 +28,7 @@ class FileStorage:
             object to be stored to te python dict
         '''
         class_name = __class__.__name__
-        Filestorage.__objects[obj.class_name + '.' + obj.id] = obj
+        FileStorage.__objects[obj.class_name + '.' + obj.id] = obj
 
     def save(self):
         """
@@ -37,8 +37,8 @@ class FileStorage:
         """
         my_dict = {}
         for key, value in FileStorage.__objects.items():
-            my_dict[key] = value.to_dict().copy.copy()
-            with open(Filestorage.__file_path, 'w') as my_folder:
+            my_dict[key] = value.to_dict().copy
+            with open(FileStorage.__file_path, 'w') as my_folder:
                 json.dump(my_dict, my_folder)
 
     def reload(self):
