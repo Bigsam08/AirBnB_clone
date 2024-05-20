@@ -7,13 +7,14 @@ import json
 class BaseModel:
     """ creating a classs BaseModel of common public instance attributes """
     def __init__(self):
+        self.updated_at = datetime.datetime.now()
         self.id = str(uuid.uuid4())
         self.created_at = datetime.datetime.now()
-        self.updated_at = datetime.datetime.now()
 
-    # A string rep to return class name id and dictionary
     def __str__(self) -> str:
-        att = "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
+        """ A string rep to return class name id and dictionary """
+        class_name = self.__class__.__name__
+        att = "[{}] ({}) {}".format(class_name, self.id, self.__dict__)
         return att
 
     def save(self):
@@ -21,7 +22,7 @@ class BaseModel:
         self.updated_at = datetime.datetime.now()
 
     def to_dict(self) -> dict:
-        ''' 
+        '''
         returns a dictionary to save object class name
         and datetime of both created and uodated file into str
         in isoformat
