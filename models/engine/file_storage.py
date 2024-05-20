@@ -2,6 +2,7 @@
 """ file storage """
 
 import json
+import datetime
 from models.base_model import BaseModel
 from models.place import Place
 from models.review import Review
@@ -17,7 +18,7 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
-    def all(self) -> dict:
+    def all(self):
         """ this method returns the dictonary of objects """
         return self.__objects
 
@@ -43,7 +44,7 @@ class FileStorage:
         for corrections
         """
         if os.path.exists(self.__file_path):
-            with open(self.__file_path) as fle:
+            with open(self.__file_path, 'r') as fle:
                 client_data = json.load(fle)
             for keys in client_data.keys():
                 if client_data[keys]['__class__'] == "User":
