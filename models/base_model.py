@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 import datetime
 import uuid
-import json
-from models import storage
+import models
 
 
 class BaseModel:
@@ -34,7 +33,7 @@ class BaseModel:
     def save(self):
         ''' save to file storage save the updated time '''
         self.updated_at = datetime.datetime.now()
-        storage.save()
+        models.storage.save()
 
     def to_dict(self) -> dict:
         '''
